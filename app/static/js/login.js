@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('login-form');
   const errorBlock = document.getElementById('login-error');
+  const submitButton = form.querySelector('button[type="submit"]');
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -12,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
       showError('Пожалуйста, заполните все поля');
       return;
     }
+
+    submitButton.disabled = true;
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -28,10 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const errorMsg =
           data.error || 'Ошибка входа. Проверьте email и пароль.';
         showError(errorMsg);
+        submitButton.disabled = false;
       }
     } catch (error) {
       showError('Не удалось соединиться с сервером. Проверьте интернет.');
       console.error('Fetch error:', error);
+      submitButton.disabled = false;
     }
   });
 

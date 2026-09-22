@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('register-form');
   const errorBlock = document.getElementById('register-error');
+  const submitButton = form.querySelector('button[type="submit"]');
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -11,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
       showError('Пожалуйста, заполните все поля');
       return;
     }
+
+    submitButton.disabled = true;
 
     try {
       const response = await fetch('/api/auth/register', {
@@ -28,10 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         const errorMsg = data.error || 'Ошибка регистрации. Попробуйте позже.';
         showError(errorMsg);
+        submitButton.disabled = false;
       }
     } catch (error) {
       showError('Не удалось соединиться с сервером. Проверьте интернет.');
       console.error('Fetch error:', error);
+      submitButton.disabled = false;
     }
   });
 

@@ -18,6 +18,12 @@ class User(UserMixin, db.Model):
     projects = db.relationship(
         "Project", back_populates="owner", cascade="all, delete-orphan"
     )
+    bot_accounts = db.relationship(
+        "BotAccount", back_populates="user", cascade="all, delete-orphan"
+    )
+    bot_link_codes = db.relationship(
+        "BotLinkCode", back_populates="user", cascade="all, delete-orphan"
+    )
 
     def __repr__(self) -> str:
         return f"<User {self.id}>"

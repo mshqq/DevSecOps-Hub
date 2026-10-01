@@ -5,7 +5,6 @@ from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
 from app.models.finding import Finding
-from app.models.project import Project
 from app.models.scan import Scan
 
 scan_bp = Blueprint("scan", __name__)
@@ -54,9 +53,7 @@ def findings(scan_id):
         return None, None, (jsonify({"error": scan.error_message}), 409)
     if scan.status != "done":
         return None, None, (jsonify({"status": scan.status}), 409)
-    finding = Finding.query.filter(
-        Scan.id == scan_id, Project.owner_id == current_user.id
-    ).all()
+    finding = Finding.query.filter(Finding.scan_id == scan_id).all()
     if scan.status == "done":
         findings = [
             {

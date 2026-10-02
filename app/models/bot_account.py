@@ -13,8 +13,6 @@ class BotAccount(db.Model):
     external_id = db.Column(db.String(16), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), default=utcnow, nullable=False)
 
-    __table_args__ = (
-        db.UniqueConstraint("platform", "external_id", "user_id", "platform"),
-    )
+    __table_args__ = (db.UniqueConstraint("platform", "external_id", "user_id"),)
 
     user = db.relationship("User", back_populates="bot_accounts")

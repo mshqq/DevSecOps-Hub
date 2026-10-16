@@ -44,7 +44,7 @@ def project(app, user):
     p = Project(
         owner_id=user.id,
         title="Тестовый проект",
-        repo_url="https://github.com/mshqq/ZabGU-DevSecOps-Hub",
+        repo_url="https://github.com/mshqq/DevSecOps-Hub",
         provider="github",
     )
     p.create_ownership_token()

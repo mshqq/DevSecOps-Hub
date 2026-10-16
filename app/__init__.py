@@ -19,7 +19,7 @@ def create_app(config: dict | None = None) -> Flask:
         SECRET_KEY=secret,
         SQLALCHEMY_DATABASE_URI=os.getenv(
             "DATABASE_URL",
-            "sqlite:///zabgu-devsecops.db",
+            "sqlite:///devsecops.db",
         ),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )

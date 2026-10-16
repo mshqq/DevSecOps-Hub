@@ -50,4 +50,4 @@
 {% endfor %}
 ---
 
-*Отчёт сформирован сервисом [ZabGU DevSecOps Hub](https://github.com/mshqq/ZabGU-DevSecOps-Hub). Секреты приведены в маскированном виде.*
+*Отчёт сформирован сервисом [DevSecOps Hub](https://github.com/mshqq/DevSecOps-Hub). Секреты приведены в маскированном виде.*

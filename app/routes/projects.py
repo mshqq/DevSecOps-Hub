@@ -126,7 +126,9 @@ def project_validate(project_id):
         if project.provider == "github":
             repo_url = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/.verify-marker"
         elif project.provider == "gitlab":
-            repo_url = f"https://gitlab.com/{owner}/{repo}/-/raw/{branch}/.verify-marker"
+            repo_url = (
+                f"https://gitlab.com/{owner}/{repo}/-/raw/{branch}/.verify-marker"
+            )
         return repo_url
 
     try:

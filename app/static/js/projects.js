@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
       }
       const data = await response.json();
-      const projects = Object.values(data);
+      const projects = data;
       console.log(projects);
       if (projects.length === 0) {
         emptyState.classList.remove('hidden');
@@ -44,17 +44,25 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function renderProjects(projects) {
     projectsList.innerHTML = '';
+
     projects.forEach(function (project) {
       const card = document.createElement('div');
       card.className =
         'bg-[#FFFFFF] rounded-2xl shadow-md p-6 border border-[#f0dfe1] flex flex-col justify-between';
       card.innerHTML = `
       <div>
-        <h4 class="text-xl font-bold text-[#8E3A4A] mb-2 break-all">${project.title}</h4>
-        <a href="${project.repo_url}" target="_blank" class="text-sm text-[#B5566B] hover:underline break-all block mb-1">${project.repo_url}</a>
-        <p class="text-sm text-gray-500 mb-4">${project.provider}</p>
-        <a href="/projects/${project.id}" class="inline-block bg-[#B5566B] hover:bg-[#8E3A4A] text-white py-2 px-4 rounded-lg text-sm transition">Подробнее</a>
-      </div>`;
+        <h4 class="title-el text-xl font-bold text-[#8E3A4A] mb-2 break-all"></h4>
+          <a class="repo-el text-sm text-[#B5566B] hover:underline break-all block mb-1" target="_blank" rel="noopener noreferrer"></a>
+          <p class="provider-el text-sm text-gray-500 mb-4"></p>
+          <a class="details-el inline-block bg-[#B5566B] hover:bg-[#8E3A4A] text-white py-2 px-4 rounded-lg text-sm transition">Подробнее</a>
+        </div>`;
+      card.querySelector('.title-el').textContent = project.title;
+      const repoLink = card.querySelector('.repo-el');
+      repoLink.href = project.repo_url;
+      repoLink.textContent = project.repo_url;
+
+      card.querySelector('.provider-el').textContent = project.provider;
+      card.querySelector('.details-el').href = `/projects/${project.id}`;
       projectsList.appendChild(card);
     });
   }

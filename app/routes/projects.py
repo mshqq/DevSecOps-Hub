@@ -22,10 +22,15 @@ def projects():
         if not projects:
             return jsonify({"error": "Нет добавленных проектов"}), 400
         return jsonify(
-            {
-                p.id: {"title": p.title, "repo_url": p.repo_url, "provider": p.provider}
+            [
+                {
+                    "id": p.id,
+                    "title": p.title,
+                    "repo_url": p.repo_url,
+                    "provider": p.provider,
+                }
                 for p in projects
-            }
+            ]
         ), 200
 
     data = request.get_json()

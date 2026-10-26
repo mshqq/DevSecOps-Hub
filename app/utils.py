@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import ParseResult, urlparse
 
 ALLOWED_HOSTS = ("github.com", "gitlab.com")

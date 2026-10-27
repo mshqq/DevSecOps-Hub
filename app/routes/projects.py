@@ -172,3 +172,15 @@ def start_scan(project_id):
     db.session.commit()
     run_scan(current_app._get_current_object(), scan.id)
     return jsonify({"scan_id": scan.id, "status": "queued"}), 202
+
+
+@projects_bp.route("/projects/<int:project_id>", methods=["GET"])
+@login_required
+def detail_project(project_id):
+    project = Project.query.get(project_id)
+    if project is None:
+        return jsonify({"error": "Проект не найден"}), 404
+
+    if project.owner_id != current_user.id:
+        abort(403)
+    return render_template("projects/projectDetail.html", project=project)

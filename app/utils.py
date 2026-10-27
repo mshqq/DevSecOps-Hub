@@ -1,11 +1,21 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import ParseResult, urlparse
 
 ALLOWED_HOSTS = ("github.com", "gitlab.com")
 
 
 def utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
+
+
+def serialize_datetime(value: datetime | None) -> str | None:
+    if value is None:
+        return None
+
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=UTC)
+
+    return value.astimezone(UTC).isoformat()
 
 
 def is_allowed_url(url: str) -> bool:

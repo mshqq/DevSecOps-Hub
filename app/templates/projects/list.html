@@ -1,1 +1,69 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block extra_head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/projects.css') }}"
+/>
+{% endblock extra_head %} {% block title %}Мои проекты - DevSecOps Hub{%
+endblock %} {% block content %}
+<div class="w-full max-w-4xl mx-auto">
+  <h2 class="text-4xl font-bold text-center text-[#8E3A4A] mb-10">
+    Мои проекты
+  </h2>
+
+  <div
+    id="projects-error"
+    class="hidden bg-[#f8d7da] border border-[#f5c6cb] text-[#721c24] px-4 py-3 rounded-xl mb-6"
+    role="alert"
+  ></div>
+
+  <div class="bg-[#ffffff] rounded-2xl shadow-lg p-8 mb-10">
+    <h3 class="text-2xl font-semibold text-[#4A2C33] mb-6">
+      Добавить новый проект
+    </h3>
+    <form id="add-project-form" class="flex flex-col gap-4">
+      <div class="flex flex-col md:flex-row gap-4">
+        <input
+          type="text"
+          id="project-title"
+          placeholder="Название проекта"
+          required
+          class="flex-1 px-5 py-3 border border-[#e5c6c9] rounded-xl focus:ring-2 focus:ring-[#8E3A4A] outline-none text-[#4A2C33]"
+        />
+        <input
+          type="url"
+          id="project-repo"
+          placeholder="URL репозитория (https://github.com/...)"
+          required
+          class="flex-1 px-5 py-3 border border-[#e5c6c9] rounded-xl focus:ring-2 focus:ring-[#8E3A4A] outline-none text-[#4A2C33]"
+        />
+        <select
+          id="project-provider"
+          class="px-5 py-3 border border-[#e5c6c9] rounded-xl focus:ring-2 focus:ring-[#8E3A4A] outline-none text-[#4A2C33] bg-white"
+        >
+          <option value="github">GitHub</option>
+          <option value="gitlab">GitLab</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        id="submit-project-btn"
+        class="self-end bg-[#8E3A4A] hover:bg-[#6b2836] text-white font-bold py-3 px-8 rounded-full shadow-md transition duration-200"
+      >
+        Добавить проект
+      </button>
+    </form>
+  </div>
+  <div
+    id="empty-state"
+    class="hidden text-center py-12 bg-[#FFFFFF] rounded-2xl shadow-md"
+  >
+    <p class="text-xl text-[#8E3A4A]">У вас пока нет добавленных проектов</p>
+    <p class="text-[#b58c94] mt-2">
+      Вы можете добавить проект с помощью формы выше
+    </p>
+  </div>
+  <div id="projects-list" class="grid grid-cols-1 nd:grid-cols-2 gap-6"></div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/projects.js') }}"></script>
+{% endblock %}

@@ -9,7 +9,7 @@ from app.extensions import db
 from app.models.project import Project
 from app.models.scan import Scan
 from app.scanner.scan_worker import run_scan
-from app.utils import is_allowed_url, utcnow
+from app.utils import is_allowed_url, serialize_datetime, utcnow
 
 projects_bp = Blueprint("projects", __name__)
 
@@ -22,10 +22,20 @@ def projects():
         if not projects:
             return jsonify({"error": "Нет добавленных проектов"}), 400
         return jsonify(
-            {
-                p.id: {"title": p.title, "repo_url": p.repo_url, "provider": p.provider}
+            [
+                {
+                    "id": p.id,
+                    "title": p.title,
+                    "repo_url": p.repo_url,
+                    "provider": p.provider,
+                    "ownership_token": p.ownership_token,
+                    "ownership_verified_at": serialize_datetime(
+                        p.ownership_verified_at
+                    ),
+                    "created_at": serialize_datetime(p.created_at),
+                }
                 for p in projects
-            }
+            ]
         ), 200
 
     data = request.get_json()
